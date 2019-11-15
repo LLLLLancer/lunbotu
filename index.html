@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        img {
+            width: 100%;
+        }
+
+        .img2 {
+            width: 800px;
+            float: left;
+            list-style: none;
+        }
+
+        .img3 {
+            width: 6000px;
+            padding: 0px;
+            margin: 0px;
+            transition: all 2s;
+        }
+
+        .xianshitu {
+            width: 800px;
+            overflow: hidden;
+            position: relative;
+            top: 100px;
+            left: 350px;
+        }
+
+        .zhizhen {
+            z-index: 1000;
+            position: absolute;
+            padding-top: 230px;
+            width: 800px;
+        }
+
+        .zhizhen2{
+            font-size: 3em;
+            color: seashell;
+        }
+
+        .zhizhen2:hover {
+            cursor: pointer;
+            background-color: rgba(189, 185, 185, 0.658);
+        }
+        </style>
+
+<script>
+    let count = 0;
+    let isgo = false;
+    let timer;
+
+    window.onload = function () {
+        let img3 = document.getElementsByClassName("img3")[0];
+        let img2 = document.getElementsByClassName("img2");
+        let zhizhen = document.getElementsByClassName("zhizhen");
+        showtime();
+        function showtime() {
+            timer = setInterval(function () {
+                if (isgo == false) {
+                    count++;
+                    img3.style.transform = "translate(" + -800 * count + "px)";
+                    if (count >= img2.length - 1) {
+                        count = img2.length - 1;
+                        isgo = true;
+                    }
+                }
+                else {
+                    count--;
+                    img3.style.transform = "translate(" + -800 * count + "px)";
+                    if (count <= 0) {
+                        count = 0;
+                        isgo = false;
+                    }
+                }
+            }, 4000)
+        }
+        for (let i = 0; i < zhizhen.length; i++) {
+            zhizhen[i].onmouseover = function () {
+                clearInterval(timer);
+            }
+            zhizhen[i].onmouseout = function () {
+                showtime();
+            }
+            zhizhen[i].onclick = function () {
+                if (this.title == 0) {
+                    count++;
+                    if (count > 4) {
+                        count = 0;
+                    }
+                }
+                else {
+                    count--;
+                    if (count < 0) {
+                        count = 4;
+                    }
+                }
+
+                img3.style.transform = "translate(" + -800 * count + "px)";               
+                }            
+        }      
+    }
+</script>
+</head>
+<body>
+    <div class="xianshitu">
+        <div class="zhizhen">
+              <span title="1" class="zhizhen2" style="position: relative;top: -90px;"><</span>
+              <span title="0" class="zhizhen2" style="float: right ;position: relative;top: -90px;">></span>
+        </div>
+     
+        <ul class="img3">
+              <li class="img2">
+                  <img src="1.jpeg">
+              </li>
+              <li class="img2">
+                <img src="2.jpeg">
+              </li>
+              <li class="img2">
+                <img src="3.jpeg">
+              </li>
+              <li class="img2">
+                <img src="4.jpeg">
+              </li>
+              <li class="img2">
+                <img src="5.jpeg">
+              </li>
+        </ul>
+     </div>     
+</body>
